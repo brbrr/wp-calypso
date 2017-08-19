@@ -12,7 +12,7 @@ import { isJetpackSite } from 'state/sites/selectors';
  */
 export default createSelector(
 	( state ) => {
-		const siteIds = Object.keys( state.sites.items );
+		const siteIds = Object.keys( state.sites.items || {} );
 		return siteIds.some( ( siteId ) => isJetpackSite( state, siteId ) );
 	},
 	( state ) => state.sites.items

@@ -21,7 +21,7 @@ const sortByNameAndUrl = list => sortBy( list, [ 'name', 'URL' ] );
 export default createSelector(
 	( state ) => {
 		const primarySiteId = getPrimarySiteId( state );
-		const [ primarySite, sites ] = partition( state.sites.items, { ID: primarySiteId } );
+		const [ primarySite, sites ] = partition( state.sites.items || {}, { ID: primarySiteId } );
 
 		return [
 			...primarySite,

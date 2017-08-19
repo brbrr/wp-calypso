@@ -43,7 +43,7 @@ import { isSiteUpgradeable } from 'state/selectors';
  * @return {?Object}        Site object
  */
 export const getRawSite = ( state, siteId ) => {
-	return state.sites.items[ siteId ] || null;
+	return get( state, [ 'sites', 'items', siteId ], null );
 };
 
 /**
@@ -55,7 +55,7 @@ export const getRawSite = ( state, siteId ) => {
  */
 export const getSiteBySlug = createSelector(
 	( state, siteSlug ) => (
-		find( state.sites.items, ( item, siteId ) => (
+		find( state.sites.items || {}, ( item, siteId ) => (
 			// find always passes the siteId as a string. We need it as a integer
 			getSiteSlug( state, parseInt( siteId, 10 ) ) === siteSlug
 		) ) || null
@@ -120,9 +120,9 @@ export function getJetpackComputedAttributes( state, siteId ) {
  */
 export const getSiteCollisions = createSelector(
 	( state ) => {
-		return map( filter( state.sites.items, ( wpcomSite ) => {
+		return map( filter( state.sites.items || {}, ( wpcomSite ) => {
 			const wpcomSiteUrlSansProtocol = withoutHttp( wpcomSite.URL );
-			return ! wpcomSite.jetpack && some( state.sites.items, ( jetpackSite ) => {
+			return ! wpcomSite.jetpack && some( state.sites.items || {}, ( jetpackSite ) => {
 				return (
 					jetpackSite.jetpack &&
 					wpcomSiteUrlSansProtocol === withoutHttp( jetpackSite.URL )

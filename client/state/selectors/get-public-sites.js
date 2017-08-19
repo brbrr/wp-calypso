@@ -12,7 +12,7 @@ import createSelector from 'lib/create-selector';
  */
 export default createSelector(
 	( state ) => {
-		return Object.values( state.sites.items )
+		return Object.values( state.sites.items || {} )
 			.filter( site => ! site.is_private )
 			.map( site => getSite( state, site.ID ) );
 	},
