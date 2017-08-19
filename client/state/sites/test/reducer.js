@@ -93,10 +93,10 @@ describe( 'reducer', () => {
 	} );
 
 	describe( '#items()', () => {
-		it( 'should default to an empty object', () => {
+		it( 'should default to null', () => {
 			const state = items( undefined, {} );
 
-			expect( state ).to.eql( {} );
+			expect( state ).to.be.null;
 		} );
 
 		it( 'can receive all sites', () => {
@@ -632,7 +632,7 @@ describe( 'reducer', () => {
 			} );
 			const state = items( original, { type: DESERIALIZE } );
 
-			expect( state ).to.eql( {} );
+			expect( state ).to.be.null;
 		} );
 	} );
 
