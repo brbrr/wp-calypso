@@ -4,7 +4,12 @@
 import url from 'url';
 import path from 'path';
 import photon from 'photon';
-import { includes, omitBy, startsWith } from 'lodash';
+import {
+	includes,
+	omitBy,
+	startsWith,
+	get,
+} from 'lodash';
 import { isUri } from 'valid-url';
 
 /**
@@ -21,6 +26,7 @@ import {
 } from './constants';
 import Shortcode from 'lib/shortcode';
 import { uniqueId } from 'lib/impure-lodash';
+import versionCompare from 'lib/version-compare';
 
 /**
  * Module variables
@@ -318,7 +324,8 @@ const MediaUtils = {
 			return null;
 		}
 
-		if ( site.jetpack && site.isModuleActive( 'videopress' ) && site.versionCompare( '4.5', '>=' ) &&
+		if ( site.jetpack && includes( get( site, 'options.active_modules' ), 'videopress' ) &&
+				versionCompare( get( site, 'options.jetpack_version' ), '4.5', '>=' ) &&
 				startsWith( MediaUtils.getMimeType( item ), 'video/' ) ) {
 			return null;
 		}

@@ -19,7 +19,10 @@ import FeaturedImageDropZoneIcon from './dropzone-icon';
 
 import { receiveMedia, deleteMedia } from 'state/media/actions';
 import { editPost } from 'state/posts/actions';
-import { getSelectedSiteId } from 'state/ui/selectors';
+import {
+	getSelectedSiteId,
+	getSelectedSite
+} from 'state/ui/selectors';
 import { getEditorPostId } from 'state/ui/editor/selectors';
 
 import { recordTracksEvent } from 'state/analytics/actions';
@@ -38,7 +41,7 @@ class FeaturedImageDropZone extends Component {
 		}
 
 		const transientMediaId = uniqueId( 'featured-image' );
-		const { siteId } = this.props;
+		const { siteId, site } = this.props;
 
 		const handleFeaturedImageUpload = () => {
 			const media = MediaStore.get( siteId, transientMediaId );
@@ -85,7 +88,7 @@ class FeaturedImageDropZone extends Component {
 
 		MediaStore.on( 'change', handleFeaturedImageUpload );
 
-		MediaActions.add( siteId, {
+		MediaActions.add( site, {
 			ID: transientMediaId,
 			fileContents: droppedImage,
 			fileName: droppedImage.name
@@ -109,6 +112,7 @@ export default connect(
 	( state ) => ( {
 		siteId: getSelectedSiteId( state ),
 		postId: getEditorPostId( state ),
+		site: getSelectedSite( state )
 	} ),
 	{
 		editPost,
