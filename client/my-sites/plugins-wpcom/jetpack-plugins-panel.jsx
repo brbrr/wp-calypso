@@ -97,7 +97,7 @@ class JetpackPluginsPanel extends Component {
 			{
 				key: 'all',
 				title: translate( 'All' ),
-				path: '/plugins' + siteFilter,
+				path: '/plugins/manage' + siteFilter,
 			},
 			{
 				key: 'engagement',

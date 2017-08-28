@@ -61,7 +61,7 @@ module.exports = function() {
 		page( '/plugins/category/:category/:site_id',
 			controller.siteSelection,
 			controller.navigation,
-			nonJetpackRedirectTo( '/plugins' ),
+			nonJetpackRedirectTo( '/plugins/manage' ),
 			pluginsController.plugins.bind( null, 'all' ),
 		);
 
