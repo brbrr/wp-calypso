@@ -2,7 +2,7 @@
 	padding: 0;
 
 	.is-bulk-editing & {
-		padding-left: 24px;
+		padding-left: 16px;
 	}
 
 	& ~ .notice.is-error {
@@ -31,11 +31,8 @@
 .plugin-item {
 	position: relative;
 	display: flex;
+	flex-direction: column;
 	overflow: hidden; // lazy clearfix
-
-	@include breakpoint( '<480px' ) {
-		flex-wrap: wrap;
-	}
 
 	&.disabled {
 		opacity: 0.5;
@@ -51,18 +48,11 @@
 	padding: 16px;
 	overflow: hidden; // lazy clearfix
 	cursor: pointer;
-
-	@include breakpoint( '<480px' ) {
-		flex-basis: 100%;
-	}
-	@include breakpoint( '>660px' ) {
-		padding: 24px;
-	}
 }
 
 .plugin-item__link {
 	.is-bulk-editing & {
-		padding-left: 40px;
+		padding-left: 32px;
 	}
 }
 
@@ -112,20 +102,14 @@
 .plugin-item__title {
 	color: $gray-dark;
 	display: block;
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 21px;
 	font-weight: 600;
 	overflow: hidden;
 	text-align: left;
 	text-overflow: ellipsis;
-	white-space: pre;
+	white-space: nowrap;
 
-	@include breakpoint( '>480px' ) {
-		font-size: 24px;
-		line-height: 32px;
-		font-weight: 700;
-		font-family: $serif;
-	}
 	@include breakpoint( '<480px') {
 		&[data-warnings="1"] {
 			padding-right: 32px;
@@ -165,18 +149,12 @@
 .plugin-item__count,
 .plugin-item__actions {
 	padding: 16px;
-	flex-grow: 1;
-	flex-shrink: 0;
-	align-self: center;
+	padding-top: 0;
+	flex: none;
+	display: flex;
 
-	@include breakpoint( '>480px' ) {
-		flex-grow: 0;
-		text-align: right;
-	}
-
-	@include breakpoint( '>660px' ) {
-		padding-right: 24px;
-		padding-left: 24px;
+	.is-bulk-editing & {
+		padding-left: 32px;
 	}
 }
 
@@ -197,13 +175,63 @@
 	display: none;
 
 	@include breakpoint( '>480px' ) {
-		display: block;
+		display: flex;
 	}
 }
 
-.plugin-item__last_updated {
+.plugin-item__last-updated {
 	color: $gray;
 	font-size: 12px;
 	line-height: 1;
 	padding: 6px 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.plugin-item {
+	.plugin-icon {
+		margin-right: 16px;
+	}
+
+	.plugin-action {
+		margin-top: 0;
+
+		& .form-toggle__switch {
+			float: left;
+		}
+
+		.form-toggle__label-content {
+			margin-left: 0;
+			margin-right: 12px;
+		}
+
+		.plugin-action__label {
+			margin-right: 0;
+			margin-left: 8px;
+		}
+
+		.plugin-activate-toggle__link {
+			margin-left: 8px;
+		}
+
+		.plugin-activate-toggle__icon {
+			float: left;
+			margin: 0;
+		}
+	}
+}
+
+.plugin-item__wrapper {
+	box-sizing: border-box;
+	display: block;
+	float: left;
+
+	@include breakpoint( ">960px" ) {
+		width: 33.33%;
+	}
+
+	@include breakpoint( "<960px" ) {
+		width: 100%;
+	}
 }

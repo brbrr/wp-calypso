@@ -196,7 +196,7 @@ class PluginItem extends Component {
 		}
 		if ( this.props.isAutoManaged ) {
 			return (
-				<div className="plugin-item__last_updated">
+				<div className="plugin-item__last-updated">
 					{ translate( '%(pluginName)s is automatically managed on this site', { args: { pluginName: pluginData.name } } ) }
 				</div>
 			);
@@ -208,7 +208,7 @@ class PluginItem extends Component {
 
 		if ( pluginData.last_updated ) {
 			return (
-				<div className="plugin-item__last_updated">
+				<div className="plugin-item__last-updated">
 					{ translate( 'Last updated %(ago)s', { args: { ago: this.ago( pluginData.last_updated ) } } ) }
 				</div>
 			);
@@ -322,13 +322,15 @@ class PluginItem extends Component {
 			</div>
 			);
 
+		const CardType = this.props.isCompact ? CompactCard : Card;
+
 		if ( this.props.hasAllNoManageSites ) {
 			const pluginItemClasses = classNames( 'plugin-item', {
 				disabled: this.props.hasAllNoManageSites,
 			} );
 			return (
 				<div className="plugin-item__wrapper">
-					<CompactCard className={ pluginItemClasses }
+					<CardType className={ pluginItemClasses }
 						onClick={ this.clickNoManageItem }>
 						<span className="plugin-item__disabled">
 							<PluginIcon image={ plugin.icon } />
@@ -336,7 +338,7 @@ class PluginItem extends Component {
 							{ this.pluginMeta( plugin ) }
 						</span>
 						{ this.props.selectedSite ? null : this.renderSiteCount() }
-					</CompactCard>
+					</CardType>
 					<div>
 					{ this.state.clicked ? this.getNoManageWarning() : null }
 					</div>
@@ -344,10 +346,9 @@ class PluginItem extends Component {
 			);
 		}
 
-		const CardType = this.props.isCompact ? CompactCard : Card;
 		/* eslint-disable wpcalypso/jsx-classname-namespace */
 		return (
-			<div>
+			<div className="plugin-item__wrapper">
 				<CardType className="plugin-item">
 					{ ! this.props.isSelectable
 						? null
