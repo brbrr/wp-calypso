@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import { find, isEmpty, some } from 'lodash';
 import { localize } from 'i18n-calypso';
 
@@ -358,7 +357,7 @@ const PluginsMain = React.createClass( {
 
 		if ( selectedSite && ! this.props.selectedSiteIsJetpack ) {
 			return (
-				<Main>
+				<Main wideLayout>
 					{ this.renderDocumentHead() }
 					<SidebarNavigation />
 					<WpcomPluginPanel { ...{
@@ -384,14 +383,8 @@ const PluginsMain = React.createClass( {
 			);
 		}
 
-		const containerClass = classNames( {
-			'main-column': true,
-			plugins: true,
-			'search-open': this.getSearchOpen()
-		} );
-
 		return (
-			<Main className={ containerClass }>
+			<Main wideLayout>
 				<NonSupportedJetpackVersionNotice />
 				{ this.renderDocumentHead() }
 				<SidebarNavigation />
