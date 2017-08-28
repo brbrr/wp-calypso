@@ -18,6 +18,7 @@ import EllipsisMenu from 'components/ellipsis-menu';
 import FoldableCard from 'components/foldable-card';
 import PopoverMenuItem from 'components/popover/menu-item';
 import { recordTracksEvent as recordTracksEventAction } from 'state/analytics/actions';
+import { ACTIVITY_WHITELIST } from 'state/data-layer/wpcom/sites/activity/from-api';
 
 const debug = debugFactory( 'calypso:activity-log:item' );
 
@@ -32,7 +33,10 @@ class ActivityLogItem extends Component {
 		siteId: PropTypes.number.isRequired,
 
 		log: PropTypes.shape( {
-			group: PropTypes.oneOf( [
+
+			// Base
+			activityDate: PropTypes.string.isRequired,
+			activityGroup: PropTypes.oneOf( [
 				'attachment',
 				'comment',
 				'core',
@@ -45,18 +49,18 @@ class ActivityLogItem extends Component {
 				'user',
 				'widget',
 			] ).isRequired,
-			name: PropTypes.string.isRequired,
-			ts_utc: PropTypes.number.isRequired,
+			activityIcon: PropTypes.string.isRequired,
+			activityId: PropTypes.string.isRequired,
+			activityName: PropTypes.oneOf( ACTIVITY_WHITELIST ).isRequired,
+			activityTitle: PropTypes.string.isRequired,
+			activityTs: PropTypes.number.isRequired,
 
-			actor: PropTypes.shape( {
-				display_name: PropTypes.string,
-				login: PropTypes.string,
-				translated_role: PropTypes.string,
-				user_email: PropTypes.string,
-				user_roles: PropTypes.string,
-				wpcom_user_id: PropTypes.number,
-				avatar_url: PropTypes.string,
-			} ),
+			// Actor
+			actorAvatarUrl: PropTypes.string.isRequired,
+			actorName: PropTypes.string.isRequired,
+			actorRemoteId: PropTypes.number.isRequired,
+			actorRole: PropTypes.string.isRequired,
+			actorWpcomId: PropTypes.number.isRequired,
 
 			object: PropTypes.shape( {
 				attachment: PropTypes.shape( {
